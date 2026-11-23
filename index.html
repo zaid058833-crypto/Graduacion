@@ -4,119 +4,196 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Licenciatura 4° Medio - Presentación</title>
-
-  <!-- Estilos de Reveal.js (Enlaces completos) -->
-  <link rel="stylesheet" href="https://cloudflare.com">
-  <link rel="stylesheet" href="https://cloudflare.com">
-  <link rel="stylesheet" href="https://cloudflare.com">
-
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
     :root {
       --dorado: #eab308;
       --fondo: #090d16;
     }
 
-    .reveal {
+    body {
       background: radial-gradient(circle at center, #162038 0%, var(--fondo) 100%);
+      color: #ffffff;
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      user-select: none;
     }
 
-    /* Diapositiva de Portada */
+    /* Pantalla negra para pausas (Tecla B) */
+    #pantalla-negra {
+      position: fixed;
+      inset: 0;
+      background: #000000;
+      z-index: 9999;
+      display: none;
+    }
+
+    /* Escenario principal con transiciones cinematográficas */
+    #escenario {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2vh 4vw;
+      transition: opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1), 
+                  transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    /* Estados de transición */
+    .salir-izq { opacity: 0; transform: translateX(-80px) scale(0.95); }
+    .salir-der { opacity: 0; transform: translateX(80px) scale(0.95); }
+    .salir-zoom { opacity: 0; transform: scale(1.15); }
+    .activo { opacity: 1; transform: translateX(0) scale(1); }
+
+    /* Portada */
+    .portada { text-align: center; }
     .portada h1 {
-      font-size: 3.2em;
-      color: #ffffff;
+      font-size: clamp(2.5rem, 5vw, 5rem);
       text-transform: uppercase;
-      letter-spacing: 3px;
-      text-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      letter-spacing: 4px;
+      text-shadow: 0 10px 30px rgba(0,0,0,0.7);
     }
     .portada h3 {
       color: var(--dorado);
-      font-size: 1.6em;
-      margin-top: 15px;
+      font-size: clamp(1.3rem, 2.5vw, 2.4rem);
+      margin-top: 16px;
       font-weight: 400;
     }
 
     /* Vista Individual */
     .ficha-individual {
-      display: flex !important;
+      text-align: center;
+      display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
     }
     .ficha-individual img {
-      height: 600px;
-      width: 460px;
+      height: 68vh;
+      width: auto;
+      max-width: 85vw;
+      aspect-ratio: 3 / 4;
       object-fit: cover;
-      object-position: center top; /* Evita cortar cabezas o birretes */
-      border-radius: 18px;
+      object-position: center top;
+      border-radius: 20px;
       border: 4px solid var(--dorado);
-      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
-      margin: 0 0 25px 0 !important;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
+      margin-bottom: 2.5vh;
     }
     .ficha-individual h2 {
-      font-size: 2.3em;
-      margin: 0;
-      color: #ffffff;
-      text-transform: none;
+      font-size: clamp(1.8rem, 3.2vw, 3.2rem);
+      letter-spacing: 0.5px;
     }
     .ficha-individual .subtitulo {
-      font-size: 1.15em;
+      font-size: clamp(1rem, 1.5vw, 1.5rem);
       color: #cbd5e1;
-      margin-top: 8px;
+      margin-top: 6px;
     }
 
-    /* Vista Grupal (10 Alumnos: 2 filas x 5 columnas ajustadas a 1080p) */
+    /* Vista Grupal (10 alumnos: 2 filas x 5 columnas) */
     .titulo-grupo {
-      font-size: 1.4em !important;
-      color: var(--dorado) !important;
-      margin-bottom: 20px !important;
-      text-transform: uppercase !important;
-      letter-spacing: 2px;
+      font-size: clamp(1.3rem, 2.2vw, 2.2rem);
+      color: var(--dorado);
+      margin-bottom: 2.5vh;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      text-align: center;
     }
     .mosaico-10 {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 18px;
-      width: 88%;
-      margin: 0 auto;
+      gap: 1.5vw;
+      width: 90vw;
+      max-width: 1650px;
     }
     .item-grupo {
-      background: rgba(255, 255, 255, 0.04);
-      padding: 8px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 10px;
       border-radius: 14px;
-      border: 1px solid rgba(234, 179, 8, 0.35);
+      border: 1px solid rgba(234, 179, 8, 0.4);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(25px) scale(0.95);
+      animation: entradaCascada 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     }
     .item-grupo img {
       width: 100%;
-      height: 310px;
+      height: 30vh;
       object-fit: cover;
-      object-position: center top; /* Encuadra el rostro en la cuadrícula */
+      object-position: center top;
       border-radius: 10px;
-      margin: 0 !important;
     }
     .item-grupo p {
-      font-size: 0.68em;
-      margin: 8px 0 2px 0;
+      font-size: clamp(0.8rem, 1.05vw, 1.15rem);
+      margin-top: 8px;
       color: #f8fafc;
       font-weight: 600;
-      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    @keyframes entradaCascada {
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Barra de controles discretos abajo a la derecha */
+    .controles-flotantes {
+      position: fixed;
+      bottom: 18px;
+      right: 22px;
+      display: flex;
+      gap: 8px;
+      opacity: 0.35;
+      transition: opacity 0.3s;
+      z-index: 100;
+    }
+    .controles-flotantes:hover { opacity: 1; }
+    .btn-ctrl {
+      background: rgba(15, 23, 42, 0.85);
+      color: #fff;
+      border: 1px solid rgba(234, 179, 8, 0.5);
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .btn-ctrl:hover { background: var(--dorado); color: #000; font-weight: bold; }
+
+    /* Barra de progreso inferior */
+    #progreso {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      background: var(--dorado);
+      width: 0%;
+      transition: width 0.4s ease;
     }
   </style>
 </head>
 <body>
 
-  <div class="reveal">
-    <div class="slides" id="contenedor-slides">
-      <section class="portada" data-transition="zoom">
-        <h1>Licenciatura 4° Medio</h1>
-        <h3>Generación 2026</h3>
-      </section>
-    </div>
+  <div id="pantalla-negra"></div>
+  <div id="escenario" class="activo"></div>
+  <div id="progreso"></div>
+
+  <div class="controles-flotantes">
+    <button class="btn-ctrl" onclick="navegar(-1)" title="Anterior (Flecha Izq)">◀</button>
+    <button class="btn-ctrl" id="btnAuto" onclick="toggleAuto()" title="Reproducción automática (Tecla A)">Auto: OFF</button>
+    <button class="btn-ctrl" onclick="pantallaCompleta()" title="Pantalla completa (Tecla F)">⛶</button>
+    <button class="btn-ctrl" onclick="navegar(1)" title="Siguiente (Flecha Der / Espacio)">▶</button>
   </div>
 
-  <!-- Script de Reveal.js (Enlace completo) -->
-  <script src="https://cloudflare.com"></script>
   <script>
+    // 1. LISTA DE ALUMNOS
     const alumnos = [
       { nombre: "Camila Andrea Soto", curso: "4° Medio A", foto: "fotos/01.jfif" },
       { nombre: "Martín Ignacio Rojas", curso: "4° Medio A", foto: "fotos/02.jfif" },
@@ -130,54 +207,129 @@
       { nombre: "Tomás Eduardo Castro", curso: "4° Medio A", foto: "fotos/10.jfif" }
     ];
 
-    const contenedor = document.getElementById("contenedor-slides");
+    // 2. ARMAR SECUENCIA: Portada -> 10 Individuales -> 1 Grupal de 10
+    const diapositivas = [{ tipo: "portada" }];
 
     for (let i = 0; i < alumnos.length; i += 10) {
       const bloque = alumnos.slice(i, i + 10);
       const numeroGrupo = Math.floor(i / 10) + 1;
 
-      bloque.forEach((alumno) => {
-        const slideInd = document.createElement("section");
-        slideInd.className = "ficha-individual";
-        slideInd.setAttribute("data-transition", "convex");
-        slideInd.innerHTML = `
-          <img src="${alumno.foto}" alt="${alumno.nombre}">
-          <h2>${alumno.nombre}</h2>
-          <div class="subtitulo">${alumno.curso}</div>
-        `;
-        contenedor.appendChild(slideInd);
+      bloque.forEach(alumno => {
+        diapositivas.push({ tipo: "individual", data: alumno });
       });
 
-      const slideGrupo = document.createElement("section");
-      slideGrupo.setAttribute("data-transition", "zoom");
-      
-      const tarjetasHTML = bloque.map((a) => `
-        <div class="item-grupo fragment fade-up">
-          <img src="${a.foto}" alt="${a.nombre}">
-          <p>${a.nombre}</p>
-        </div>
-      `).join("");
-
-      slideGrupo.innerHTML = `
-        <h3 class="titulo-grupo">Generación 2026 • Grupo ${numeroGrupo}</h3>
-        <div class="mosaico-10">${tarjetasHTML}</div>
-      `;
-      contenedor.appendChild(slideGrupo);
+      diapositivas.push({ tipo: "grupo", data: bloque, numero: numeroGrupo });
     }
 
-    Reveal.initialize({
-      width: 1920,
-      height: 1080,
-      margin: 0.04,
-      controls: true,           // Flechas visibles abajo a la derecha
-      progress: true,           // Barra de avance abajo
-      center: true,
-      hash: false,
-      transition: 'fade',
-      transitionSpeed: 'slow',
-      autoSlide: 0              // Cambia 0 por 3500 si quieres que avance solo cada 3.5 seg
+    let indiceActual = 0;
+    let bloqueado = false;
+    let temporizadorAuto = null;
+    const escenario = document.getElementById("escenario");
+    const barraProgreso = document.getElementById("progreso");
+
+    function renderizar(indice) {
+      const slide = diapositivas[indice];
+      barraProgreso.style.width = `${((indice + 1) / diapositivas.length) * 100}%`;
+
+      if (slide.tipo === "portada") {
+        escenario.innerHTML = `
+          <div class="portada">
+            <h1>Licenciatura 4° Medio</h1>
+            <h3>Generación 2026</h3>
+          </div>
+        `;
+      } else if (slide.tipo === "individual") {
+        escenario.innerHTML = `
+          <div class="ficha-individual">
+            <img src="${slide.data.foto}" alt="${slide.data.nombre}">
+            <h2>${slide.data.nombre}</h2>
+            <div class="subtitulo">${slide.data.curso}</div>
+          </div>
+        `;
+      } else if (slide.tipo === "grupo") {
+        const tarjetas = slide.data.map((a, idx) => `
+          <div class="item-grupo" style="animation-delay: ${idx * 0.12}s">
+            <img src="${a.foto}" alt="${a.nombre}">
+            <p>${a.nombre}</p>
+          </div>
+        `).join("");
+
+        escenario.innerHTML = `
+          <h3 class="titulo-grupo">Generación 2026 • Grupo ${slide.numero}</h3>
+          <div class="mosaico-10">${tarjetas}</div>
+        `;
+      }
+    }
+
+    function navegar(direccion) {
+      if (bloqueado) return;
+      const nuevoIndice = indiceActual + direccion;
+      if (nuevoIndice < 0 || nuevoIndice >= diapositivas.length) return;
+
+      bloqueado = true;
+      const esGrupo = diapositivas[nuevoIndice].tipo === "grupo";
+      
+      // Animación de salida
+      escenario.classList.remove("activo");
+      escenario.classList.add(esGrupo ? "salir-zoom" : (direccion > 0 ? "salir-izq" : "salir-der"));
+
+      setTimeout(() => {
+        indiceActual = nuevoIndice;
+        renderizar(indiceActual);
+        
+        // Preparar entrada desde el lado opuesto
+        escenario.className = esGrupo ? "salir-zoom" : (direccion > 0 ? "salir-der" : "salir-izq");
+        void escenario.offsetWidth; // Forzar repintado
+        escenario.className = "activo";
+        
+        setTimeout(() => { bloqueado = false; }, 500);
+      }, 450);
+    }
+
+    function toggleAuto() {
+      const btn = document.getElementById("btnAuto");
+      if (temporizadorAuto) {
+        clearInterval(temporizadorAuto);
+        temporizadorAuto = null;
+        btn.textContent = "Auto: OFF";
+      } else {
+        btn.textContent = "Auto: ON";
+        temporizadorAuto = setInterval(() => {
+          if (indiceActual < diapositivas.length - 1) navegar(1);
+          else toggleAuto();
+        }, 4000); // Cambia cada 4 segundos
+      }
+    }
+
+    function pantallaCompleta() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(() => {});
+      } else {
+        document.exitFullscreen();
+      }
+    }
+
+    // Comandos de teclado y pasador de diapositivas (Clicker)
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === " " || e.key === "PageDown") {
+        e.preventDefault();
+        navegar(1);
+      } else if (e.key === "ArrowLeft" || e.key === "PageUp") {
+        e.preventDefault();
+        navegar(-1);
+      } else if (e.key.toLowerCase() === "f") {
+        pantallaCompleta();
+      } else if (e.key.toLowerCase() === "a") {
+        toggleAuto();
+      } else if (e.key.toLowerCase() === "b" || e.key === ".") {
+        const negro = document.getElementById("pantalla-negra");
+        negro.style.display = negro.style.display === "block" ? "none" : "block";
+      }
     });
+
+    renderizar(0);
   </script>
 </body>
 </html>
+
 
