@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Licenciatura 4° Medio - Presentación</title>
 
-  <!-- Estilos base y tema oscuro de Reveal.js desde CDN -->
-  <link rel="stylesheet" href="https://jsdelivr.net">
-  <link rel="stylesheet" href="https://jsdelivr.net">
-  <link rel="stylesheet" href="https://jsdelivr.net">
+  <!-- Estilos de Reveal.js (Enlaces completos) -->
+  <link rel="stylesheet" href="https://cloudflare.com">
+  <link rel="stylesheet" href="https://cloudflare.com">
+  <link rel="stylesheet" href="https://cloudflare.com">
 
   <style>
     :root {
@@ -21,19 +21,9 @@
       font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
     }
 
-    /* Logo superior discreto para pantalla gigante */
-    .logo-colegio {
-      position: fixed;
-      top: 28px;
-      left: 36px;
-      height: 65px;
-      z-index: 10;
-      opacity: 0.9;
-    }
-
     /* Diapositiva de Portada */
     .portada h1 {
-      font-size: 3.4em;
+      font-size: 3.2em;
       color: #ffffff;
       text-transform: uppercase;
       letter-spacing: 3px;
@@ -46,7 +36,7 @@
       font-weight: 400;
     }
 
-    /* Vista Individual (Pantalla Gigante) */
+    /* Vista Individual */
     .ficha-individual {
       display: flex !important;
       flex-direction: column;
@@ -54,9 +44,10 @@
       justify-content: center;
     }
     .ficha-individual img {
-      height: 540px;
-      width: 410px;
+      height: 600px;
+      width: 460px;
       object-fit: cover;
+      object-position: center top; /* Evita cortar cabezas o birretes */
       border-radius: 18px;
       border: 4px solid var(--dorado);
       box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75);
@@ -74,37 +65,38 @@
       margin-top: 8px;
     }
 
-    /* Vista Grupal (10 Alumnos: 2 filas x 5 columnas) */
+    /* Vista Grupal (10 Alumnos: 2 filas x 5 columnas ajustadas a 1080p) */
     .titulo-grupo {
-      font-size: 1.5em !important;
+      font-size: 1.4em !important;
       color: var(--dorado) !important;
-      margin-bottom: 30px !important;
+      margin-bottom: 20px !important;
       text-transform: uppercase !important;
       letter-spacing: 2px;
     }
     .mosaico-10 {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      gap: 24px;
-      width: 92%;
+      gap: 18px;
+      width: 88%;
       margin: 0 auto;
     }
     .item-grupo {
       background: rgba(255, 255, 255, 0.04);
-      padding: 10px;
+      padding: 8px;
       border-radius: 14px;
       border: 1px solid rgba(234, 179, 8, 0.35);
     }
     .item-grupo img {
       width: 100%;
-      aspect-ratio: 3 / 4;
+      height: 310px;
       object-fit: cover;
+      object-position: center top; /* Encuadra el rostro en la cuadrícula */
       border-radius: 10px;
       margin: 0 !important;
     }
     .item-grupo p {
-      font-size: 0.72em;
-      margin: 10px 0 2px 0;
+      font-size: 0.68em;
+      margin: 8px 0 2px 0;
       color: #f8fafc;
       font-weight: 600;
       line-height: 1.2;
@@ -113,12 +105,8 @@
 </head>
 <body>
 
-  <!-- Opcional: descomenta la línea de abajo si tienes el logo en PNG -->
-  <!-- <img src="fotos/logo-colegio.png" alt="Logo" class="logo-colegio"> -->
-
   <div class="reveal">
     <div class="slides" id="contenedor-slides">
-      <!-- Portada inicial -->
       <section class="portada" data-transition="zoom">
         <h1>Licenciatura 4° Medio</h1>
         <h3>Generación 2026</h3>
@@ -126,10 +114,9 @@
     </div>
   </div>
 
-  <!-- Scripts de Reveal.js -->
-  <script src="https://jsdelivr.net"></script>
+  <!-- Script de Reveal.js (Enlace completo) -->
+  <script src="https://cloudflare.com"></script>
   <script>
-    // 1. LISTA DE ALUMNOS (Edita aquí los nombres y rutas de fotos)
     const alumnos = [
       { nombre: "Camila Andrea Soto", curso: "4° Medio A", foto: "fotos/01.jfif" },
       { nombre: "Martín Ignacio Rojas", curso: "4° Medio A", foto: "fotos/02.jfif" },
@@ -140,22 +127,19 @@
       { nombre: "Isidora Antonia Morales", curso: "4° Medio A", foto: "fotos/07.jfif" },
       { nombre: "Vicente Gabriel Torres", curso: "4° Medio A", foto: "fotos/08.jfif" },
       { nombre: "Emilia Josefa Fuentes", curso: "4° Medio A", foto: "fotos/09.jfif" },
-      { nombre: "Tomás Eduardo Castro", curso: "4° Medio A", foto: "fotos/10.jfif" },
-      // Agrega aquí los siguientes alumnos (se agruparán automáticamente de 10 en 10)
+      { nombre: "Tomás Eduardo Castro", curso: "4° Medio A", foto: "fotos/10.jfif" }
     ];
 
     const contenedor = document.getElementById("contenedor-slides");
 
-    // 2. GENERACIÓN AUTOMÁTICA: 10 individuales -> 1 grupal de 10
     for (let i = 0; i < alumnos.length; i += 10) {
       const bloque = alumnos.slice(i, i + 10);
       const numeroGrupo = Math.floor(i / 10) + 1;
 
-      // Crear diapositivas individuales con transición suave
       bloque.forEach((alumno) => {
         const slideInd = document.createElement("section");
         slideInd.className = "ficha-individual";
-        slideInd.setAttribute("data-transition", "convex"); // Efecto 3D sutil entre alumnos
+        slideInd.setAttribute("data-transition", "convex");
         slideInd.innerHTML = `
           <img src="${alumno.foto}" alt="${alumno.nombre}">
           <h2>${alumno.nombre}</h2>
@@ -164,9 +148,8 @@
         contenedor.appendChild(slideInd);
       });
 
-      // Crear diapositiva grupal de los 10 recién presentados
       const slideGrupo = document.createElement("section");
-      slideGrupo.setAttribute("data-transition", "zoom"); // Efecto zoom hacia atrás para mostrar el grupo
+      slideGrupo.setAttribute("data-transition", "zoom");
       
       const tarjetasHTML = bloque.map((a) => `
         <div class="item-grupo fragment fade-up">
@@ -182,20 +165,19 @@
       contenedor.appendChild(slideGrupo);
     }
 
-    // 3. INICIALIZAR REVEAL.JS PARA PANTALLA GIGANTE
     Reveal.initialize({
-      width: 1920,              // Resolución Full HD nativa para proyectores/pantallas LED
+      width: 1920,
       height: 1080,
       margin: 0.04,
-      controls: false,          // Oculta las flechas en pantalla para que se vea limpio en el evento
-      progress: false,          // Oculta la barra inferior
+      controls: true,           // Flechas visibles abajo a la derecha
+      progress: true,           // Barra de avance abajo
       center: true,
       hash: false,
       transition: 'fade',
-      transitionSpeed: 'slow',  // Transiciones elegantes y pausadas
-      autoSlide: 0,             // En 0 avanza manual con clicker/teclado. Pon 4000 si quieres automático cada 4 seg.
-      loop: false
+      transitionSpeed: 'slow',
+      autoSlide: 0              // Cambia 0 por 3500 si quieres que avance solo cada 3.5 seg
     });
   </script>
 </body>
 </html>
+
