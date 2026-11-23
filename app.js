@@ -27,10 +27,11 @@ function pintar() {
   if (s.tipo === "portada") {
     box.innerHTML = `<div class="portada"><h1>Licenciatura 4° Medio</h1><h3>Generación 2026</h3></div>`;
   } else if (s.tipo === "ind") {
-    box.innerHTML = `<div class="individual"><img src="${s.data.foto}"><h2>${s.data.nombre}</h2><p>${s.data.curso}</p></div>`;
+    box.innerHTML = `<div class="individual"><h2>${s.data.nombre}</h2><p>${s.data.curso}</p><img src="${s.data.foto}"></div>`;
   } else {
+    const cursoGrupo = s.data[0].curso;
     const cards = s.data.map((a, idx) => `<div class="tarjeta" style="animation-delay:${idx * 0.15}s"><img src="${a.foto}"><span>${a.nombre}</span></div>`).join("");
-    box.innerHTML = `<h3 class="titulo-grupo">Generación 2026 • Grupo ${s.num}</h3><div class="mosaico">${cards}</div>`;
+    box.innerHTML = `<h3 class="titulo-grupo">Generación 2026 • ${cursoGrupo}</h3><div class="mosaico">${cards}</div>`;
   }
 }
 
