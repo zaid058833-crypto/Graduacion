@@ -39,21 +39,27 @@ function mover(dir) {
   if (sig < 0 || sig >= slides.length) return;
   box.className = "oculto";
   setTimeout(() => {
-  pos = sig;
-  pintar();
-  box.className = "visible";
+    pos = sig;
+    pintar();
+    box.className = "visible";
   }, 450);
 }
 
 document.getElementById("btnPrev").onclick = () => mover(-1);
-document.getElementById("btnNext").document.getElementById("btnNext").onclick = () => mover(1);
+document.getElementById("btnNext").onclick = () => mover(1);
 document.getElementById("btnFull").onclick = () => {
   if (!document.fullscreenElement) document.documentElement.requestFullscreen();
   else document.exitFullscreen();
 };
 document.getElementById("btnAuto").onclick = (e) => {
-  if (timer) { clearInterval(timer); timer = null; e.target.textContent = "Auto: OFF"; }
-  else { e.target.textContent = "Auto: ON"; timer = setInterval(() => mover(1), 3500); }
+  if (timer) {
+    clearInterval(timer);
+    timer = null;
+    e.target.textContent = "Auto: OFF";
+  } else {
+    e.target.textContent = "Auto: ON";
+    timer = setInterval(() => mover(1), 3500);
+  }
 };
 
 document.addEventListener("keydown", (e) => {
@@ -62,3 +68,4 @@ document.addEventListener("keydown", (e) => {
 });
 
 pintar();
+
